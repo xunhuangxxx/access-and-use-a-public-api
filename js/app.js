@@ -9,31 +9,32 @@ function fetchData(url){
          .catch(error => console.error('fail to fetch', error))
 }
 
-function genarateEmployees(url) {
+function generateEmployees(url) {
+  let employees = [];
   for(let i = 0; i < 12; i++){
-    fetchData(url)
-    .then(generateHTML)
-    .catch(error => console.error('fail to generate', error));
+    employees.push(fetchData(url))
   }
-
+  Promise.all(employees)
+  .then( arr => arr.map(generateHTML))
+  .catch(error => console.error('fail to generate html', error))
 }
 
 
 
 /*********** Helper functions ************/
 
-const card = document.createElement('div');
-card.className = 'card';
-
 //Create function to genarate HTML
 function generateHTML(response) {
+  const card = document.createElement('div');
+  card.className = 'card';
+
   const person = response.results[0];
   const imgUrl = person.picture.thumbnail;
   const name = person.name.first + person.name.last;
   const email = person.email;
-  const location = person.location.city + person.location.city;
+  const location = person.location.city + ', ' +person.location.state;
 
-  card.innerHTML += `
+  card.innerHTML = `
   <img src="${imgUrl}"/>
   <div id="info">
   <p id="name">${name}</p>
@@ -41,10 +42,9 @@ function generateHTML(response) {
   <p id="location">${location}</p>
   </div>
   `;
-
   directory.appendChild(card);
 }
 
 
-genarateEmployees('https://randomuser.me/api/')
+generateEmployees('https://randomuser.me/api/');
 /*********** Event Listners ************/
