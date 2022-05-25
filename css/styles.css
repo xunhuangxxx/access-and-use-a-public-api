@@ -12,11 +12,11 @@ h4{
 
 #directory{
   margin: 20px 0;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .card{
-  margin: 20px;
+  margin:20px;
   width: 360px;
   height: 140px;
   border: 1px solid lightgrey;
@@ -33,12 +33,13 @@ img{
   border-radius: 50%;
 }
 
-#info{
+.info{
   margin:0;
+  width: 220px;
   display: block;
 }
 
-#name{
+.name{
   margin:25px 0 20px;
   width: 180px;
   height: 20px;
@@ -47,11 +48,72 @@ img{
   color: dimgrey;
 }
 
-#email, #location{
+.email, .location{
   margin-top:5px;
   width: 120px;
   height: 12px;
   font-size: 14px;
   font-weight: 200;
   color: dimgrey;
+}
+
+/********* Modal window **********/
+.container{
+  position:fixed;
+  align-content: center;
+  top:0;
+  left:0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  z-index: 99;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.modal-window {
+  margin: 130px auto;
+  left: 500px;
+  display: flex;
+  height: 450px;
+  width: 400px;
+  background-color: #f8ece5;
+  align-items: center;
+  flex-direction: column;
+}
+
+
+
+.employee-info img{
+  margin: 0;
+width: 150px;height: 150px;}
+
+#email, #location, #phone, #address, #bday{
+  margin: 5px;
+  font-size: 14px;
+  font-weight: 200;
+  color: dimgrey;
+}
+
+
+#location{
+  padding: 0 70px 15px;
+  border-bottom: 2px solid lightgrey;
+}
+
+#phone{
+  padding-top: 10px;
+}
+
+#name{
+  margin: 10px 0;
+}
+
+.employee-info{
+  margin: 0 0 0 0;display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.close {
+ width: 20px;margin-left: auto;
 }
