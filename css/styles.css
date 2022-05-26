@@ -10,6 +10,12 @@ h4{
   font-weight: 600;
 }
 
+label{
+  font-weight: 400;
+  font-size: 17px;
+  color: #9198a1;
+}
+
 #directory{
   margin: 20px 0;
   justify-content: space-around;
@@ -116,4 +122,10 @@ width: 150px;height: 150px;}
 
 .close {
  width: 20px;margin-left: auto;
+}
+
+.pagebutton{
+  display: flex;
+  width: 380px;
+  justify-content: space-between;
 }

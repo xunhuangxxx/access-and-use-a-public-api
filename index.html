@@ -11,6 +11,8 @@
   </head>
   <body>
     <h4>AWESOME STARTUP EMPLOYEE DIRECTORY</h4>
+    <label for="search">Search By Name</label>
+    <input type="text" id="search">
     <div id="directory">
 
     </div>
@@ -19,7 +21,14 @@
     <div class="container">
       <div class="modal-window">
         <span class="close" aria-hidden="true">&times;</span>
-        <div class='employee-info'></div>  
+        <div class='employee-info'></div>
+        <div class='pagebutton'>
+          <button class="btn previous">prev</button>
+
+          <button class="btn next">next</button>
+
+        </div>
+
       </div>
     </div>
     <script src="js/app.js"></script>

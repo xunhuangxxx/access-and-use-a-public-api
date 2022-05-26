@@ -4,6 +4,8 @@ const popUpWindow = document.querySelector('.modal-window');
 const container = document.querySelector('.container');
 const closeButton = document.querySelector('.close');
 const employeeWindow = document.querySelector('.employee-info');
+const previousButton = document.querySelector('.previous');
+const nextButton = document.querySelector('.next');
 /************  Fetch functions  **********/
 
 //Create fetch function and error handler
@@ -27,6 +29,7 @@ function generateEmployees(url) {
     })
   })
   .then(addPopUp)
+  .then(backAndForth)
   .catch(error => console.log('fail to generate html', error))
 }
 
@@ -43,20 +46,21 @@ function generateHTML(response) {
   const email = person.email;
   const location = person.location.city + ', ' +person.location.state;
 
-  card.innerHTML = `
-  <img src="${imgUrl}" alt="photo of employee"/>
-  <div class="info" data-id='${email}'>
-  <p class="name">${name}</p>
-  <p class="email">${email}</p>
-  <p class="location">${location}</p>
-  </div>
-  `;
+  //English alphabet filter
+    card.innerHTML = `
+    <img src="${imgUrl}" alt="photo of employee"/>
+    <div class="info" data-id='${email}'>
+    <p class="name">${name}</p>
+    <p class="email">${email}</p>
+    <p class="location">${location}</p>
+    </div>
+    `;
 
-  directory.appendChild(card);
+    directory.appendChild(card);
+
+
+
 }
-
-
-
 
 
 
@@ -68,7 +72,7 @@ function storeData(data){
   personInfo[personId] = person;
 }
 
-//Format data
+//Create a funtion to format data and replace the html of pop up window
 
 function replacePopUpHTML(idNum) {
   const person = personInfo[idNum];
@@ -115,12 +119,12 @@ function hide() {
   container.style.display = 'none';
 }
 
-
+// Create funtion
 
 
 /*********** Call Functions ************/
 
-generateEmployees('https://randomuser.me/api/');
+generateEmployees('https://randomuser.me/api/?nat=us');
 
 
 
@@ -138,7 +142,36 @@ function addPopUp() {
  }
 }
 
-
 closeButton.addEventListener('click', () => {
   hide();
 });
+
+
+//Back and forth funtion
+function backAndForth() {
+  const cardList = document.querySelectorAll('.card');
+
+  previousButton.addEventListener('click', () =>{
+   const employeeId = document.querySelector('#email').textContent;
+
+   for(let i = 0; i < cardList.length; i ++){
+     if(cardList[i].querySelector('.email').textContent === employeeId
+       && i > 0){
+       const previousId = cardList[i].previousSibling.querySelector('.email').textContent;
+       replacePopUpHTML(previousId);
+    }
+  }
+});
+
+  nextButton.addEventListener('click', () => {
+    const employeeId = document.querySelector('#email').textContent;
+
+    for(let i = 0; i < cardList.length; i ++){
+      if(cardList[i].querySelector('.email').textContent === employeeId
+      && i < cardList.length - 1){
+        const nextId = cardList[i].nextSibling.querySelector('.email').textContent;
+        replacePopUpHTML(nextId);
+      }
+    }
+  });
+}
