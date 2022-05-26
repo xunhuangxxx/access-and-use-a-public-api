@@ -6,6 +6,8 @@ const closeButton = document.querySelector('.close');
 const employeeWindow = document.querySelector('.employee-info');
 const previousButton = document.querySelector('.previous');
 const nextButton = document.querySelector('.next');
+const searchButton = document.querySelector('.button');
+const input = document.querySelector('#search');
 /************  Fetch functions  **********/
 
 //Create fetch function and error handler
@@ -46,17 +48,16 @@ function generateHTML(response) {
   const email = person.email;
   const location = person.location.city + ', ' +person.location.state;
 
-  //English alphabet filter
-    card.innerHTML = `
-    <img src="${imgUrl}" alt="photo of employee"/>
-    <div class="info" data-id='${email}'>
-    <p class="name">${name}</p>
-    <p class="email">${email}</p>
-    <p class="location">${location}</p>
-    </div>
-    `;
+  card.innerHTML = `
+  <img src="${imgUrl}" alt="photo of employee"/>
+  <div class="info" data-id='${email}'>
+  <p class="name">${name}</p>
+  <p class="email">${email}</p>
+  <p class="location">${location}</p>
+  </div>
+  `;
 
-    directory.appendChild(card);
+  directory.appendChild(card);
 
 
 
@@ -72,6 +73,21 @@ function storeData(data){
   personInfo[personId] = person;
 }
 
+
+//Search function
+function showSearchResults() {
+  const text = input.value.toUpperCase();
+
+  const divList = document.querySelectorAll('.card');
+  for(let i = 0; i < divList.length; i++){
+    const name = divList[i].querySelector('.name').textContent.toUpperCase();
+    if( name.includes(text) || text ===''){
+      divList[i].style.display = '';
+    }else{
+      divList[i].style.display = 'none';
+    }
+  }
+}
 //Create a funtion to format data and replace the html of pop up window
 
 function replacePopUpHTML(idNum) {
@@ -128,8 +144,12 @@ generateEmployees('https://randomuser.me/api/?nat=us');
 
 
 
-
 /*********** Event Listners ************/
+searchButton.addEventListener('click', showSearchResults);
+
+input.addEventListener('keyup',showSearchResults);
+
+
 function addPopUp() {
   const cardList = document.querySelectorAll('.card');
 
@@ -153,7 +173,6 @@ function backAndForth() {
 
   previousButton.addEventListener('click', () =>{
    const employeeId = document.querySelector('#email').textContent;
-
    for(let i = 0; i < cardList.length; i ++){
      if(cardList[i].querySelector('.email').textContent === employeeId
        && i > 0){
@@ -165,7 +184,6 @@ function backAndForth() {
 
   nextButton.addEventListener('click', () => {
     const employeeId = document.querySelector('#email').textContent;
-
     for(let i = 0; i < cardList.length; i ++){
       if(cardList[i].querySelector('.email').textContent === employeeId
       && i < cardList.length - 1){

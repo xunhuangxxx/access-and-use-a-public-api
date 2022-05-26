@@ -16,6 +16,19 @@ label{
   color: #9198a1;
 }
 
+input{
+  font-weight: 200;
+  font-size: 16px;
+  padding: 5px;
+  color: #68687d;
+}
+
+button{
+  font-size: 14px;
+  padding:5px;
+  color: #504d51;
+}
+
 #directory{
   margin: 20px 0;
   justify-content: space-around;
